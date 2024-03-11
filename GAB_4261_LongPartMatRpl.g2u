@@ -1,0 +1,587 @@
+Program.Sub.ScreenSU.Start
+Gui.frmRpl..Create
+Gui.frmRpl..Caption("Long Part Mass Replace Material")
+Gui.frmRpl..Size(6405,3435)
+Gui.frmRpl..MinX(0)
+Gui.frmRpl..MinY(0)
+Gui.frmRpl..Position(0,0)
+Gui.frmRpl..BackColor(-2147483633)
+Gui.frmRpl..MousePointer(0)
+Gui.frmRpl..Event(UnLoad,frmRpl_UnLoad)
+Gui.frmRpl..MaxButton(False)
+Gui.frmRpl..Sizeable(False)
+Gui.frmRpl.cmdUpdate.Create(Button)
+Gui.frmRpl.cmdUpdate.Size(855,375)
+Gui.frmRpl.cmdUpdate.Position(330,2595)
+Gui.frmRpl.cmdUpdate.Caption("Update")
+Gui.frmRpl.cmdUpdate.Event(Click,cmdUpdate_Click)
+Gui.frmRpl.cmdUpdate.TabStop(True)
+Gui.frmRpl.cmdUpdate.TabIndex(14)
+Gui.frmRpl.frameSel.Create(Frame)
+Gui.frmRpl.frameSel.Size(5565,1590)
+Gui.frmRpl.frameSel.Position(330,15)
+Gui.frmRpl.txtCurrent.Create(TextBox,"",True,4035,300,0,75,420,True,0,"Arial",8,-2147483643,1)
+Gui.frmRpl.txtCurrent.Parent("frameSel")
+Gui.frmRpl.txtCurrent.Event(LostFocus,txtCurrent_LostFocus)
+Gui.frmRpl.txtCurrent.TabStop(True)
+Gui.frmRpl.txtCurrent.TabIndex(4)
+Gui.frmRpl.txtReplace.Create(TextBox,"",True,4035,300,0,75,1155,True,0,"Arial",8,-2147483643,1)
+Gui.frmRpl.txtReplace.Parent("frameSel")
+Gui.frmRpl.txtReplace.TabStop(True)
+Gui.frmRpl.txtReplace.TabIndex(8)
+Gui.frmRpl.txtReplace.Event(LostFocus,txtReplace_LostFocus)
+Gui.frmRpl.lblReplace.Create(Label,"Replace with Part Number:",True,2625,255,0,45,945,True,0,"Arial",8,-2147483633,0)
+Gui.frmRpl.lblReplace.Parent("frameSel")
+Gui.frmRpl.lblCurrent.Create(Label,"Current Part Number:",True,2610,255,0,45,210,True,0,"Arial",8,-2147483633,0)
+Gui.frmRpl.lblCurrent.Parent("frameSel")
+Gui.frmRpl.cmdBrwCurrent.Create(Button)
+Gui.frmRpl.cmdBrwCurrent.Size(375,375)
+Gui.frmRpl.cmdBrwCurrent.Position(5115,375)
+Gui.frmRpl.cmdBrwCurrent.Parent("frameSel")
+Gui.frmRpl.cmdBrwCurrent.Caption("^")
+Gui.frmRpl.cmdBrwCurrent.Event(Click,cmdBrwCurrent_Click)
+Gui.frmRpl.cmdBrwCurrent.TabStop(True)
+Gui.frmRpl.cmdBrwCurrent.TabIndex(7)
+Gui.frmRpl.lblReplaceRev.Create(Label,"Rev",True,450,255,0,4215,945,True,0,"Arial",8,-2147483633,0)
+Gui.frmRpl.lblReplaceRev.Parent("frameSel")
+Gui.frmRpl.lblCurrentRev.Create(Label,"Rev",True,450,255,0,4215,210,True,0,"Arial",8,-2147483633,0)
+Gui.frmRpl.lblCurrentRev.Parent("frameSel")
+Gui.frmRpl.txtCurrentRev.Create(TextBox,"",True,825,300,0,4185,420,True,0,"Arial",8,-2147483643,1)
+Gui.frmRpl.txtCurrentRev.Parent("frameSel")
+Gui.frmRpl.txtCurrentRev.TabStop(True)
+Gui.frmRpl.txtCurrentRev.TabIndex(5)
+Gui.frmRpl.txtCurrentRev.Event(LostFocus,txtCurrentRev_LostFocus)
+Gui.frmRpl.txtReplaceRev.Create(TextBox,"",True,825,300,0,4185,1155,True,0,"Arial",8,-2147483643,1)
+Gui.frmRpl.txtReplaceRev.Parent("frameSel")
+Gui.frmRpl.txtReplaceRev.TabStop(True)
+Gui.frmRpl.txtReplaceRev.TabIndex(9)
+Gui.frmRpl.txtReplaceRev.Event(LostFocus,txtReplaceRev_LostFocus)
+Gui.frmRpl.cmdBrwReplace.Create(Button)
+Gui.frmRpl.cmdBrwReplace.Size(375,375)
+Gui.frmRpl.cmdBrwReplace.Position(5115,1110)
+Gui.frmRpl.cmdBrwReplace.Parent("frameSel")
+Gui.frmRpl.cmdBrwReplace.Caption("^")
+Gui.frmRpl.cmdBrwReplace.Event(Click,cmdBrwReplace_Click)
+Gui.frmRpl.frameOpts.Create(Frame)
+Gui.frmRpl.frameOpts.Size(5565,810)
+Gui.frmRpl.frameOpts.Position(330,1665)
+Gui.frmRpl.frameOpts.Caption("Options")
+Gui.frmRpl.chkRouter.Create(CheckBox)
+Gui.frmRpl.chkRouter.Size(1650,240)
+Gui.frmRpl.chkRouter.Position(90,240)
+Gui.frmRpl.chkRouter.Parent("frameOpts")
+Gui.frmRpl.chkRouter.Caption("Update Router(s)")
+Gui.frmRpl.chkRouter.TabStop(True)
+Gui.frmRpl.chkRouter.TabIndex(12)
+Gui.frmRpl.chkRouter.Event(Click,chkRouter_Click)
+Gui.frmRpl.chkBOM.Create(CheckBox)
+Gui.frmRpl.chkBOM.Size(2235,255)
+Gui.frmRpl.chkBOM.Position(90,510)
+Gui.frmRpl.chkBOM.Parent("frameOpts")
+Gui.frmRpl.chkBOM.Caption("Update Bill of Material(s)")
+Gui.frmRpl.chkBOM.TabStop(True)
+Gui.frmRpl.chkBOM.TabIndex(13)
+Gui.frmRpl.chkBOM.Event(Click,chkBOM_Click)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+	V.Global.bLargeInv.Declare
+	V.Global.bClear.Declare
+	V.Global.sCurrent.Declare
+	V.Global.sCurrentRev.Declare
+	V.Global.sReplace.Declare
+	V.Global.sReplaceRev.Declare
+	V.Global.sGSSPartCurrent.Declare
+	V.Global.sGSSPartReplace.Declare
+	V.Global.bBrowser.Declare(Boolean,False)
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	'Copy Long Part, Router, and BOMs
+	
+	V.Local.sIcon.Declare
+	
+	F.Intrinsic.String.Build("{0}\GAB\GAS\gss2.ico",V.Caller.PluginsDir,v.Local.sIcon)
+	Gui.frmRpl..Icon(V.Local.sIcon)
+	
+	F.ODBC.Connection!con.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+	F.Intrinsic.Control.CallSub(settextboxlen)
+	F.Intrinsic.Control.CallSub(filltextboxes)
+	V.Global.bClear.Set(True)
+	
+	Gui.frmRpl..Show
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: GAB_4261_LongPartMatRpl.g2u{0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}.",V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.Main.End
+
+Program.Sub.frmRpl_UnLoad.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	F.ODBC.Connection!con.Close
+	F.Intrinsic.Control.End
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: GAB_4261_LongPartMatRpl.g2u{0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}.",V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.frmRpl_UnLoad.End
+
+Program.Sub.SetTextBoxLen.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	V.Local.iPartLen.Declare
+	V.Local.iRevLen.Declare
+	
+	F.Global.General.ReadOption("400861",0,False,"0000",V.Global.bLargeInv)
+	F.Global.General.ReadOption("400861",3,False,"0000",V.Local.iPartLen)
+	F.Global.General.ReadOption("400862",3,False,"0000",V.Local.iRevLen)
+	Gui.frmRpl.txtCurrent.MaxLength(V.Local.iPartLen)
+	Gui.frmRpl.txtCurrentRev.MaxLength(V.Local.iRevLen)
+	Gui.frmRpl.txtReplace.MaxLength(V.Local.iPartLen)
+	Gui.frmRpl.txtReplaceRev.MaxLength(V.Local.iRevLen)
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: GAB_4261_LongPartMatRpl.g2u{0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}.",V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.SetTextBoxLen.End
+
+Program.Sub.FillTextboxes.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	V.Local.bExists.Declare
+	
+	F.Data.Dictionary.Exists("dicCurrent",V.Local.bExists)
+	F.Intrinsic.Control.If(V.Local.bExists)
+		F.Data.Dictionary.Close("dicCurrent")
+		Gui.frmRpl.txtCurrent.ClearAutoCompleteItems
+		F.Data.Dictionary.Close("dicReplace")
+		Gui.frmRpl.txtReplace.ClearAutoCompleteItems
+	F.Intrinsic.Control.EndIf
+	
+	F.Data.Dictionary.CreateFromSQL("dicCurrent","con","SELECT DISTINCT IF(INV_LXR.GSS_PART IS NULL, SUBSTRING(BOM_MSTR.PART, 1,17), DISPLAY_PART),IF(INV_LXR.GSS_PART IS NULL, SUBSTRING(BOM_MSTR.PART, 1,17), DISPLAY_PART) FROM BOM_MSTR LEFT JOIN INV_LXR ON INV_LXR.GSS_PART = BOM_MSTR.PART LEFT JOIN V_BOM_ENG ON V_BOM_ENG.PART = BOM_MSTR.PART WHERE SEQUENCE_BOM <> '0000' OR DISPLAY_PART <> '' ORDER BY 1;")
+	Gui.frmRpl.txtCurrent.AddAutoCompleteItem("dicCurrent","Dictionary")
+	
+	F.Data.Dictionary.CreateFromSQL("dicReplace","con","Select Gss_Part,Display_Part from Inv_Lxr;")
+	Gui.frmRpl.txtReplace.AddAutoCompleteItem("dicReplace","Dictionary")
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: GAB_4261_LongPartMatRpl.g2u{0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}.",V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.FillTextboxes.End
+
+Program.Sub.cmdBrwCurrent_Click.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	'Browser for Current field
+	
+	V.Local.sRet.Declare
+	V.Local.sTitles.Declare
+	V.Local.iWidths.Declare
+	
+	F.Intrinsic.UI.SetBrowserHotTypeAhead(True)
+
+	F.Intrinsic.Control.If(V.Global.bLargeInv)
+'		F.Intrinsic.String.Split("Part*!*Rev*!*Loc*!*Inactive*!*Customer*!*Customer Part*!*Mfg Part*!*Mfg Name*!*Description*!*On Hand","*!*",V.Local.sTitles)
+'		F.Intrinsic.String.Split("1500*!*500*!*200*!*200*!*500*!*500*!*500*!*500*!*1000*!*600","*!*",V.Local.iWidths)
+'		F.Intrinsic.UI.Browser("Select Part:","con","SELECT DISTINCT DISPLAY_PART,DISPLAY_REV,LOCATION,FLAG_INACTIVE,CUSTOMER,DISPLAY_CUST_PART,DISPLAY_MFG_PART,MFG_NAME,DESCRIPTION,QTY_ONHAND FROM ATG_BRW_INVENTORY ORDER BY DISPLAY_PART,DISPLAY_REV;",V.Local.sTitles,V.Local.iWidths,"16000","8000",V.Local.sRet)
+		F.Intrinsic.String.Split("Part*!*Rev*!*Description","*!*",V.Local.sTitles)
+		F.Intrinsic.String.Split("1500*!*500*!*1000","*!*",V.Local.iWidths)
+		F.Intrinsic.UI.Browser("Select Part:","con","SELECT DISTINCT IF(INV_LXR.GSS_PART IS NULL, SUBSTRING(BOM_MSTR.PART, 1,17), DISPLAY_PART),IF(INV_LXR.GSS_PART IS NULL, SUBSTRING(BOM_MSTR.PART, 18, 3), DISPLAY_REV),V_BOM_ENG.DESCRIPTION FROM BOM_MSTR LEFT JOIN INV_LXR ON INV_LXR.GSS_PART = BOM_MSTR.PART LEFT JOIN V_BOM_ENG ON V_BOM_ENG.PART = BOM_MSTR.PART WHERE SEQUENCE_BOM <> '0000' OR DISPLAY_PART <> '' ORDER BY 1,2;",V.Local.sTitles,V.Local.iWidths,12000,8000,V.Local.sRet)
+		F.Intrinsic.Control.If(V.Local.sRet,<>,"***CANCEL***")
+			F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+			Gui.frmRpl.txtCurrent.Text(V.Local.sRet(0).Trim)
+			Gui.frmRpl.txtCurrentRev.Text(V.Local.sRet(1).Trim)
+			V.Global.bBrowser.Set(True)
+			F.Intrinsic.Control.CallSub(txtCurrent_lostfocus)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Else
+'		F.Intrinsic.String.Split("Part*!*Rev*!*Loc*!*Inactive*!*Customer*!*Customer Part*!*Mfg Part*!*Mfg Name*!*Description*!*On Hand","*!*",V.Local.sTitles)
+'		F.Intrinsic.String.Split("1500*!*500*!*200*!*200*!*500*!*500*!*500*!*500*!*1000*!*600","*!*",V.Local.iWidths)
+'		F.Intrinsic.UI.Browser("Select Part:","con","SELECT DISTINCT IF(INV_LXR.DISPLAY_PART is null, SUBSTRING(INV_CROSS_REF.PART, 1, 17), INV_LXR.DISPLAY_PART), IF(INV_LXR.DISPLAY_PART IS NULL, SUBSTRING(INV_CROSS_REF.PART, 18, 3), INV_LXR.DISPLAY_REV), INV_CROSS_REF.LOCATION, INVENTORY_MSTR.FLAG_INACTIVE, INV_CROSS_REF.CUSTOMER, IF (LPART_CUST_XREF.LONG_PART IS NULL, INV_CROSS_REF.CUSTOMER_PART, LPART_CUST_XREF.LONG_PART), IF (LPART_MFG_XREF.LONG_PART IS NULL, INV_CROSS_REF.MFG_PART, LPART_MFG_XREF.LONG_PART),INV_CROSS_REF.MFG_NAME, INV_CROSS_REF.DESCRIPTION, INVENTORY_MSTR.QTY_ONHAND FROM INV_CROSS_REF LEFT OUTER JOIN INVENTORY_MSTR ON INV_CROSS_REF.PART = INVENTORY_MSTR.PART AND INV_CROSS_REF.LOCATION = INVENTORY_MSTR.LOCATION LEFT OUTER JOIN INV_LXR ON INV_CROSS_REF.PART = INV_LXR.GSS_PART LEFT OUTER JOIN LPART_CUST_XREF ON INV_CROSS_REF.CUSTOMER_PART = LPART_CUST_XREF.PART LEFT OUTER JOIN LPART_MFG_XREF ON INV_CROSS_REF.MFG_PART = LPART_MFG_XREF.PART ORDER BY 1,2;",V.Local.sTitles,V.Local.iWidths,"16000","8000",V.Local.sRet)
+		F.Intrinsic.String.Split("Part*!*Rev*!*Description","*!*",V.Local.sTitles)
+		F.Intrinsic.String.Split("1500*!*500*!*1000","*!*",V.Local.iWidths)
+		F.Intrinsic.UI.Browser("Select Part:","con","SELECT DISTINCT IF(INV_LXR.GSS_PART IS NULL, SUBSTRING(BOM_MSTR.PART, 1,17), DISPLAY_PART),IF(INV_LXR.GSS_PART IS NULL, SUBSTRING(BOM_MSTR.PART, 18, 3), DISPLAY_REV),V_BOM_ENG.DESCRIPTION FROM BOM_MSTR LEFT JOIN INV_LXR ON INV_LXR.GSS_PART = BOM_MSTR.PART LEFT JOIN V_BOM_ENG ON V_BOM_ENG.PART = BOM_MSTR.PART WHERE SEQUENCE_BOM <> '0000' OR DISPLAY_PART <> '' ORDER BY 1,2;",V.Local.sTitles,V.Local.iWidths,12000,8000,V.Local.sRet)
+		F.Intrinsic.Control.If(V.Local.sRet,<>,"***CANCEL***")
+			F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+			Gui.frmRpl.txtCurrent.Text(V.Local.sRet(0).Trim)
+			Gui.frmRpl.txtCurrentRev.Text(V.Local.sRet(1).Trim)
+			F.Intrinsic.Control.CallSub(txtCurrent_lostfocus)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: GAB_4261_LongPartMatRpl.g2u{0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}.",V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.cmdBrwCurrent_Click.End
+
+Program.Sub.cmdBrwReplace_Click.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	'Browser for Replace field
+	
+	V.Local.sRet.Declare
+	V.Local.sTitles.Declare
+	V.Local.iWidths.Declare
+	
+	F.Intrinsic.UI.SetBrowserHotTypeAhead(True)
+	
+	F.Intrinsic.Control.If(V.Global.bLargeInv)
+		F.Intrinsic.String.Split("Part*!*Rev*!*Loc*!*Inactive*!*Customer*!*Customer Part*!*Mfg Part*!*Mfg Name*!*Description*!*On Hand","*!*",V.Local.sTitles)
+		F.Intrinsic.String.Split("1500*!*500*!*200*!*200*!*500*!*500*!*500*!*500*!*1000*!*600","*!*",V.Local.iWidths)
+		F.Intrinsic.UI.Browser("Select Part:","con","SELECT DISTINCT DISPLAY_PART,DISPLAY_REV,LOCATION,FLAG_INACTIVE,CUSTOMER,DISPLAY_CUST_PART,DISPLAY_MFG_PART,MFG_NAME,DESCRIPTION,QTY_ONHAND FROM ATG_BRW_INVENTORY ORDER BY DISPLAY_PART,DISPLAY_REV;",V.Local.sTitles,V.Local.iWidths,"16000","8000",V.Local.sRet)
+		F.Intrinsic.Control.If(V.Local.sRet,<>,"***CANCEL***")
+			F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+			Gui.frmRpl.txtReplace.Text(V.Local.sRet(0).Trim)
+			Gui.frmRpl.txtReplaceRev.Text(V.Local.sRet(1).Trim)
+			F.Intrinsic.Control.CallSub(txtReplace_LostFocus)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Else
+		F.Intrinsic.String.Split("Part*!*Rev*!*Loc*!*Inactive*!*Customer*!*Customer Part*!*Mfg Part*!*Mfg Name*!*Description*!*On Hand","*!*",V.Local.sTitles)
+		F.Intrinsic.String.Split("1500*!*500*!*200*!*200*!*500*!*500*!*500*!*500*!*1000*!*600","*!*",V.Local.iWidths)
+		F.Intrinsic.UI.Browser("Select Part:","con","SELECT DISTINCT IF(INV_LXR.DISPLAY_PART is null, SUBSTRING(INV_CROSS_REF.PART, 1, 17), INV_LXR.DISPLAY_PART), IF(INV_LXR.DISPLAY_PART IS NULL, SUBSTRING(INV_CROSS_REF.PART, 18, 3), INV_LXR.DISPLAY_REV), INV_CROSS_REF.LOCATION, INVENTORY_MSTR.FLAG_INACTIVE, INV_CROSS_REF.CUSTOMER, IF (LPART_CUST_XREF.LONG_PART IS NULL, INV_CROSS_REF.CUSTOMER_PART, LPART_CUST_XREF.LONG_PART), IF (LPART_MFG_XREF.LONG_PART IS NULL, INV_CROSS_REF.MFG_PART, LPART_MFG_XREF.LONG_PART),INV_CROSS_REF.MFG_NAME, INV_CROSS_REF.DESCRIPTION, INVENTORY_MSTR.QTY_ONHAND FROM INV_CROSS_REF LEFT OUTER JOIN INVENTORY_MSTR ON INV_CROSS_REF.PART = INVENTORY_MSTR.PART AND INV_CROSS_REF.LOCATION = INVENTORY_MSTR.LOCATION LEFT OUTER JOIN INV_LXR ON INV_CROSS_REF.PART = INV_LXR.GSS_PART LEFT OUTER JOIN LPART_CUST_XREF ON INV_CROSS_REF.CUSTOMER_PART = LPART_CUST_XREF.PART LEFT OUTER JOIN LPART_MFG_XREF ON INV_CROSS_REF.MFG_PART = LPART_MFG_XREF.PART ORDER BY 1,2;",V.Local.sTitles,V.Local.iWidths,"16000","8000",V.Local.sRet)
+		F.Intrinsic.Control.If(V.Local.sRet,<>,"***CANCEL***")
+			F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+			Gui.frmRpl.txtReplace.Text(V.Local.sRet(0).Trim)
+			Gui.frmRpl.txtReplaceRev.Text(V.Local.sRet(1).Trim)
+			F.Intrinsic.Control.CallSub(txtReplace_LostFocus)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: GAB_4261_LongPartMatRpl.g2u{0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}.",V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.cmdBrwReplace_Click.End
+
+Program.Sub.cmdUpdate_Click.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	'Copy Data based on Radio selected and validate fields
+	
+	V.Local.sSQL.Declare
+	V.Local.sRet.Declare
+	V.Local.sPart.Declare
+	V.Local.sPartReplace.Declare
+	V.Local.sPartDesc.Declare
+	V.Local.sUM.Declare
+	V.Local.sLeadTime.Declare
+	V.Local.sSource.Declare
+	V.Local.sCost.Declare
+	
+	V.Global.sCurrent.Set(V.Screen.frmRpl!txtCurrent.Text)
+	V.Global.sCurrentRev.Set(V.Screen.frmRpl!txtCurrentRev.Text)
+	V.Global.sReplace.Set(V.Screen.frmRpl!txtReplace.Text)
+	V.Global.sReplaceRev.Set(V.Screen.frmRpl!txtReplaceRev.Text)
+
+	F.Intrinsic.Control.If(V.Global.sCurrent,<>,"")
+	F.Intrinsic.Control.AndIf(V.Global.sReplace,<>,"")
+		F.Intrinsic.Control.If(V.Global.sCurrent,=,V.Global.sReplace)
+		F.Intrinsic.Control.AndIf(V.Global.sCurrentRev,=,V.Global.sReplaceRev)
+			Function.Intrinsic.UI.Msgbox("Please select different part numbers to run update.","Current and Replace Part Numbers Match")
+			F.Intrinsic.Control.ExitSub
+		F.Intrinsic.Control.Else
+			F.Intrinsic.Control.If(V.Screen.frmRpl!chkRouter.Value,=,1)
+				F.Intrinsic.String.Build("SELECT GSS_PART FROM INV_LXR WHERE DISPLAY_PART = '{0}' AND DISPLAY_REV = '{1}';",V.Global.sCurrent,V.Global.sCurrentRev,V.Local.sSQL)
+				F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL,V.Global.sGSSPartCurrent)
+				F.Intrinsic.Control.If(V.Global.sGSSPartCurrent,=,"")
+					F.Intrinsic.String.GSSPartString(V.Global.sCurrent,V.Global.sCurrentRev,V.Local.sPart)
+					F.Intrinsic.String.Build("SELECT PART FROM INVENTORY_MSTR WHERE PART = '{0}';",V.Local.sPart,V.Local.sSQL)
+					F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL,V.Global.sGSSPartCurrent)
+				F.Intrinsic.Control.EndIf
+				
+				F.Intrinsic.String.Build("SELECT GSS_PART FROM INV_LXR WHERE DISPLAY_PART = '{0}' AND DISPLAY_REV = '{1}';",V.Global.sReplace,V.Global.sReplaceRev,V.Local.sSQL)
+				F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL,V.Global.sGSSPartReplace)
+				F.Intrinsic.Control.If(V.Global.sGSSPartReplace,=,"")
+					F.Intrinsic.String.GSSPartString(V.Global.sReplace,V.Global.sReplaceRev,V.Local.sPart)
+					F.Intrinsic.String.Build("SELECT PART FROM INVENTORY_MSTR WHERE PART = '{0}';",V.Local.sPart,V.Local.sSQL)
+					F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL,V.Global.sGSSPartReplace)
+				F.Intrinsic.Control.EndIf
+				
+				F.Intrinsic.String.Build("SELECT PART,DESCRIPTION,UM_INVENTORY,TIME_MATERIAL_LEAD FROM INVENTORY_MSTR WHERE PART = '{0}';",V.Global.sGSSPartReplace,V.Local.sSQL)
+				F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL,V.Local.sRet)
+				F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+				V.Local.sPartReplace.Set(V.Local.sRet(0))
+				V.Local.sPartDesc.Set(V.Local.sRet(1))
+				V.Local.sUM.Set(V.Local.sRet(2))
+				V.Local.sLeadTime.Set(V.Local.sRet(3))
+				
+				F.Intrinsic.String.Build("SELECT MATL FROM INVENTORY_COST WHERE PART = '{0}';",V.Global.sGSSPartReplace,V.Local.sSQL)
+				F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL,V.Local.sCost)
+				
+				F.Intrinsic.String.Build("UPDATE ROUTER_LINE SET PART_WC_OUTSIDE = '{0}',RATE = '{1}',DESC_RT_LINE = '{2}',UM_INVENTORY = '{3}',LEAD_TIME = '{4}' WHERE ROUTER_TYPE = 'L' AND LMO = 'M' AND PART_WC_OUTSIDE = '{5}';",V.Local.sPartReplace,V.Local.sCost,V.Local.sPartDesc,V.Local.sUM,V.Local.sLeadTime,V.Global.sGSSPartCurrent,V.Local.sSQL)
+				F.ODBC.Connection!con.Execute(V.Local.sSQL)
+			F.Intrinsic.Control.EndIf
+				
+			F.Intrinsic.Control.If(V.Screen.frmRpl!chkBOM.Value,=,1)
+				F.Intrinsic.String.Build("SELECT GSS_PART FROM INV_LXR WHERE DISPLAY_PART = '{0}' AND DISPLAY_REV = '{1}';",V.Global.sCurrent,V.Global.sCurrentRev,V.Local.sSQL)
+				F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL,V.Global.sGSSPartCurrent)
+				F.Intrinsic.Control.If(V.Global.sGSSPartCurrent,=,"")
+					F.Intrinsic.String.GSSPartString(V.Global.sCurrent,V.Global.sCurrentRev,V.Local.sPart)
+					F.Intrinsic.String.Build("SELECT PART FROM INVENTORY_MSTR WHERE PART = '{0}';",V.Local.sPart,V.Local.sSQL)
+					F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL,V.Global.sGSSPartCurrent)
+				F.Intrinsic.Control.EndIf
+				
+				F.Intrinsic.String.Build("SELECT GSS_PART FROM INV_LXR WHERE DISPLAY_PART = '{0}' AND DISPLAY_REV = '{1}';",V.Global.sReplace,V.Global.sReplaceRev,V.Local.sSQL)
+				F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL,V.Global.sGSSPartReplace)
+				F.Intrinsic.Control.If(V.Global.sGSSPartReplace,=,"")
+					F.Intrinsic.String.GSSPartString(V.Global.sReplace,V.Global.sReplaceRev,V.Local.sPart)
+					F.Intrinsic.String.Build("SELECT PART FROM INVENTORY_MSTR WHERE PART = '{0}';",V.Local.sPart,V.Local.sSQL)
+					F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL,V.Global.sGSSPartReplace)
+				F.Intrinsic.Control.EndIf
+				
+				F.Intrinsic.String.Build("SELECT PART,DESCRIPTION FROM INVENTORY_MSTR WHERE PART = '{0}';",V.Global.sGSSPartReplace,V.Local.sSQL)
+				F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL,V.Local.sRet)
+				F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+				V.Local.sPartReplace.Set(V.Local.sRet(0))
+				V.Local.sPartDesc.Set(V.Local.sRet(1))
+				
+				F.Intrinsic.String.Build("SELECT CODE_SOURCE FROM INVENTORY_MST2 WHERE PART = '{0}';",V.Global.sGSSPartReplace,V.Local.sSQL)
+				F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL,V.Local.sSource)
+				
+				F.Intrinsic.String.Build("SELECT PART FROM BOM_ENG WHERE PART = '{0}';",V.Global.sGSSPartReplace,V.Local.sSQL)
+				F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL,V.Local.sRet)
+				F.Intrinsic.Control.If(V.Local.sRet,=,"")
+					F.Intrinsic.String.Build("INSERT INTO BOM_ENG(PART,DESCRIPTION,DATE_REVISION,IS_PARENT) VALUES('{0}','{1}','{2}','N');",V.Local.sPartReplace,V.Local.sPartDesc,V.Ambient.Date.FormatMMDDYY,V.Local.sSQL)
+					F.ODBC.Connection!con.Execute(V.Local.sSQL)
+				F.Intrinsic.Control.EndIf
+				
+				F.Intrinsic.String.Build("UPDATE BOM_MSTR SET PART = '{0}',SOURCE = '{1}' WHERE PART = '{2}';",V.Local.sPartReplace,v.Local.sSource,V.Global.sGSSPartCurrent,V.Local.sSQL)
+				F.ODBC.Connection!con.Execute(V.Local.sSQL)
+				
+				F.Intrinsic.Control.If(V.Screen.frmRpl!chkRebuild.Value,=,1)
+					'Call FIXBMATL CallWrapper to rebuild selected BOMs
+				F.Intrinsic.Control.EndIf
+			F.Intrinsic.Control.EndIf
+			Function.Intrinsic.UI.Msgbox("Replace Complete","Complete")
+			F.Intrinsic.Control.CallSub(clearscreen)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: GAB_4261_LongPartMatRpl.g2u{0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}.",V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.cmdUpdate_Click.End
+
+Program.Sub.ClearScreen.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	Gui.frmRpl.txtCurrent.Text("")
+	Gui.frmRpl.txtCurrentRev.Text("")
+	Gui.frmRpl.txtReplace.Text("")
+	Gui.frmRpl.txtReplaceRev.Text("")
+	Gui.frmRpl.chkRouter.Value(False)
+	Gui.frmRpl.chkBOM.Value(False)
+	'Gui.frmRpl.chkRebuild.Value(False)
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: GAB_4261_LongPartMatRpl.g2u{0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}.",V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.ClearScreen.End
+
+Program.Sub.chkRouter_Click.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	F.Intrinsic.Control.If(V.Screen.frmRpl!chkBOM.Value,=,1)
+		Gui.frmRpl.chkRouter.Value(1)
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: GAB_4261_LongPartMatRpl.g2u{0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}.",V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.chkRouter_Click.End
+
+Program.Sub.chkBOM_Click.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	F.Intrinsic.Control.If(V.Screen.frmRpl!chkBOM.Value,=,1)
+'		Gui.frmRpl.chkRebuild.Visible(True)
+		Gui.frmRpl.chkRouter.Value(1)
+	F.Intrinsic.Control.Else
+'		Gui.frmRpl.chkRebuild.Visible(False)
+'		Gui.frmRpl.chkRebuild.Value(0)
+		Gui.frmRpl.chkRouter.Value(0)
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: GAB_4261_LongPartMatRpl.g2u{0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}.",V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.chkBOM_Click.End
+
+Program.Sub.txtCurrent_LostFocus.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	V.Local.sDisplayPart.Declare
+	V.Local.sDisplayRev.Declare
+	V.Local.sGssPartString.Declare
+	V.Local.sSQL.Declare
+	V.Local.sRetInv.Declare
+	V.Local.sRetRtr.Declare
+	V.Local.sRetBom.Declare
+	V.Local.iLen.Declare
+	V.Local.sRev.Declare
+	V.Local.sType.Declare
+	V.Local.bArg.Declare
+	
+	Gui.frmRpl.chkRouter.Value(0)
+	Gui.frmRpl.chkBOM.Value(0)
+	'Gui.frmRpl.chkRebuild.Value(0)
+	
+	V.Local.sDisplayPart.Set(V.Screen.frmRpl!txtCurrent.Text)
+	F.Intrinsic.String.UCase(V.Local.sDisplayPart,V.Local.sDisplayPart)
+	Gui.frmRpl.txtCurrent.Text(V.Local.sDisplayPart.Trim)
+	
+	V.Local.sDisplayRev.Set(V.Screen.frmRpl!txtCurrentRev.Text)
+	F.Intrinsic.String.UCase(V.Local.sDisplayRev,V.Local.sDisplayRev)
+	Gui.frmRpl.txtCurrentRev.Text(V.Local.sDisplayRev.Trim)
+	
+	F.Intrinsic.Control.If(V.Local.sDisplayPart.Trim,<>,"")
+		F.Intrinsic.Control.If(V.Global.bBrowser)
+			F.Intrinsic.String.Build("SELECT GSS_PART FROM INV_LXR WHERE DISPLAY_PART = '{0}' AND DISPLAY_REV = '{1}';",V.Local.sDisplayPart.Trim,V.Local.sDisplayRev.Trim,V.Local.sSQL)
+			F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL,V.Global.sGSSPartCurrent)
+			V.Global.bBrowser.Set(False)
+		F.Intrinsic.Control.Else
+			F.Intrinsic.String.Build("SELECT TOP 1 GSS_PART FROM INV_LXR WHERE DISPLAY_PART = '{0}' ORDER BY GSS_PART;",V.Local.sDisplayPart.Trim,V.Local.sSQL)
+			F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL,V.Global.sGSSPartCurrent)
+			F.Intrinsic.Control.If(V.Global.sGSSPartCurrent.Trim,<>,"")
+				F.Intrinsic.String.Split(V.Global.sGSSPartCurrent,"*!*",V.Local.sRetInv)
+				F.Intrinsic.String.Split(V.Local.sRetInv(0),"||",V.Local.sRev)
+				F.Intrinsic.Control.If(V.Local.sRev(1),=,"OOB")
+					Gui.frmRpl.txtCurrentRev.Text("")
+				F.Intrinsic.Control.Else
+					Gui.frmRpl.txtCurrentRev.Text(V.Local.sRev(1))
+				F.Intrinsic.Control.EndIf
+			F.Intrinsic.Control.Else
+				F.Intrinsic.String.Build("SELECT TOP 1 SUBSTRING(PART,1,17),SUBSTRING(PART,18,3) FROM INVENTORY_MSTR WHERE PART = '{0}' ORDER BY PART;",V.Local.sDisplayPart.Trim,V.Local.sSQL)
+				F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL,V.Global.sGSSPartCurrent)
+				F.Intrinsic.String.Split(V.Global.sGSSPartCurrent,"*!*",V.Local.sRetInv)
+				F.Intrinsic.Control.If(V.Local.sRetInv(1),=,"OOB")
+					Gui.frmRpl.txtCurrentRev.Text("")
+				F.Intrinsic.Control.Else
+					Gui.frmRpl.txtCurrentRev.Text(V.Local.sRetInv(1))
+				F.Intrinsic.Control.EndIf
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: GAB_4261_LongPartMatRpl.g2u{0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}.",V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.txtCurrent_LostFocus.End
+
+Program.Sub.txtCurrentRev_LostFocus.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	V.Global.sCurrentRev.Set(V.Screen.frmRpl!txtCurrentRev.Text)
+	Gui.frmRpl.txtCurrentRev.Text(V.Global.sCurrentRev.UCase)
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: GAB_4261_LongPartMatRpl.g2u{0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}.",V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.txtCurrentRev_LostFocus.End
+
+Program.Sub.txtReplace_LostFocus.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	V.Local.sDisplayPart.Declare
+	V.Local.sDisplayRev.Declare
+	V.Local.sGssPartString.Declare
+	V.Local.sSQL.Declare
+	V.Local.sRetInv.Declare
+	V.Local.sRetRtr.Declare
+	V.Local.sRetBom.Declare
+	V.Local.iLen.Declare
+	V.Local.sRev.Declare
+	V.Local.sType.Declare
+	V.Local.bArg.Declare
+	
+	Gui.frmRpl.chkRouter.Value(0)
+	Gui.frmRpl.chkBOM.Value(0)
+	'Gui.frmRpl.chkRebuild.Value(0)
+	
+	V.Local.sDisplayPart.Set(V.Screen.frmRpl!txtReplace.Text)
+	F.Intrinsic.String.UCase(V.Local.sDisplayPart,V.Local.sDisplayPart)
+	Gui.frmRpl.txtReplace.Text(V.Local.sDisplayPart.Trim)
+	
+	V.Local.sDisplayRev.Set(V.Screen.frmRpl!txtReplaceRev.Text)
+	F.Intrinsic.String.UCase(V.Local.sDisplayRev,V.Local.sDisplayRev)
+	Gui.frmRpl.txtReplaceRev.Text(V.Local.sDisplayRev.Trim)
+	
+	F.Intrinsic.Control.If(V.Local.sDisplayPart.Trim,<>,"")
+		V.Local.sRetInv.Set("")
+		F.Intrinsic.String.Build("SELECT GSS_PART FROM INV_LXR WHERE DISPLAY_PART = '{0}' AND DISPLAY_REV = '{1}';",V.Local.sDisplayPart.Trim,V.Local.sDisplayRev.Trim,V.Local.sSQL)
+		F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSQL,V.Global.sGSSPartReplace)
+			
+		F.Intrinsic.Control.If(V.Local.sRetInv,<>,"")
+			F.Intrinsic.String.Split(V.Local.sRetInv,"*!*",V.Local.sRetInv)
+			F.Intrinsic.String.Split(V.Local.sRetInv(0),"||",V.Local.sRev)
+			F.Intrinsic.Control.If(V.Local.sRev(1),=,"OOB")
+				Gui.frmRpl.txtReplaceRev.Text("")
+			F.Intrinsic.Control.Else
+				Gui.frmRpl.txtReplaceRev.Text(V.Local.sRev(1))
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: GAB_4261_LongPartMatRpl.g2u{0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}.",V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.txtReplace_LostFocus.End
+
+Program.Sub.txtReplaceRev_LostFocus.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	V.Global.sReplaceRev.Set(V.Screen.frmRpl!txtReplaceRev.Text)
+	Gui.frmRpl.txtReplaceRev.Text(V.Global.sReplaceRev.UCase)
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: GAB_4261_LongPartMatRpl.g2u{0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}.",V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.txtReplaceRev_LostFocus.End
+
+Program.Sub.Comments.Start
+${$0$}$GAB_4261_LongPartMatRpl$}$AGV$}$10/03/2016 11:15:29 AM$}$False
+Program.Sub.Comments.End
